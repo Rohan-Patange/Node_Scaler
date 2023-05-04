@@ -1,0 +1,1 @@
+Hi There, This is the sample file which we will be using to check the path module of Node.js!

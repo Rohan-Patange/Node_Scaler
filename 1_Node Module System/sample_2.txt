@@ -1,0 +1,2 @@
+Hi There, I am s2, This is the sample file which we will be using to check the path module of Node.js!
+I am Sample file
