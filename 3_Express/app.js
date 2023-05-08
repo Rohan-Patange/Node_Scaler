@@ -2,6 +2,9 @@ const express = require('express');
 
 const app = express();
 
+const myMiddlewareFunction = require('./middlewares/middle');
+
+const morgan = require('morgan');
 //get, post, put, delete
 
 
@@ -13,8 +16,9 @@ let courses = [
     {id:3,name:'Python'}
 ]
 
+app.use(myMiddlewareFunction);
 
-
+app.use(morgan('tiny'));
 //Get Methods
 app.get('/', (req, res) => {
 
