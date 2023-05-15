@@ -38,7 +38,7 @@ async function createCourse(){
 
 createCourse()
 
-/*
+
 //Get Courses Method
 
 async function getCourses(){
@@ -73,4 +73,4 @@ async function deleteCourses(id) {
     console.log(course)
 }
 
-deleteCourses('6459c8fc26b56690a71a0e02')*/
+deleteCourses('6459c8fc26b56690a71a0e02')
