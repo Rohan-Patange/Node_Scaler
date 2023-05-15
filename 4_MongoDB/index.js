@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 mongoose.connect('mongodb://127.0.0.1/testDatabase')
-.then(()=>console.log('Connection is successful'))
+.then(()=>console.log('Connection is Successful to database'))
 .catch(err => console.log('Error connecting to mongodb',err))
 
 
