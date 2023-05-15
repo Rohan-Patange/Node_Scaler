@@ -7,11 +7,12 @@ mongoose.connect('mongodb://127.0.0.1/testDatabase')
 
 //Schema
 const courseSchema = new mongoose.Schema({
-    name: String,
-    creator: String,
+    name: {type: String, required: true, minlength: 2, maxlength: 50},
+    creator: {type: String, required: true, minlength: 2, maxlength: 50},
     publishedDate: {type:Date, default:Date.now},
-    isPublished: Boolean,
-    rating: Number
+    isPublished: {type: Boolean, required: true},
+    rating: {type: Number, required: function(){return this.isPublished}},
+    category: {type: String, required:true, enum : ['DSA','Web','Mobile','Data science']},
 })
 
 const Course = mongoose.model('Course', courseSchema)
@@ -22,10 +23,11 @@ async function createCourse(){
 
 
     const course = new Course({
-        name: 'Python',
+        name: 'C#',
         creator:'Rohan',
-        isPublished: false,
-        rating: 2.8
+        isPublished: true,
+        rating: 4.,
+        category: 'Web'
     })
     
     
@@ -34,9 +36,9 @@ async function createCourse(){
     console.log(result)
 }
 
-// createCourse()
+createCourse()
 
-
+/*
 //Get Courses Method
 
 async function getCourses(){
@@ -71,4 +73,4 @@ async function deleteCourses(id) {
     console.log(course)
 }
 
-deleteCourses('6459c8fc26b56690a71a0e02')
+deleteCourses('6459c8fc26b56690a71a0e02')*/
