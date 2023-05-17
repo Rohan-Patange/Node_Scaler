@@ -1,29 +1,20 @@
 const express = require('express');
-const mongoose = require('mongoose');
 const router = express.Router();
-const Joi = require('joi');
+const {Category, validate} = require('../models/categoriesModel');
 
-
-//Schema
-const categorySchema = new mongoose.Schema({
-    name: {type: String, required: true, minlength: 2, maxlength: 50},
-   
-})
-
-const Category = mongoose.model('Category', categorySchema);
 
 
 
 //Get API to get categories
-router.get('/api/categories',async (req,res)=>{
+router.get('/api/students',async (req,res)=>{
     let categories = await Category.find()
     res.send(categories);
 })
 
 //Post API to add categories
-router.post('/api/categories', async(req,res)=>{
+router.post('/api/students', async(req,res)=>{
 
-    const {error} = validateData(req.body);
+    const {error} = validate(req.body);
     if(error) res.status(400).send(error.details[0].message);
     const category = new Category({
         name : req.body.name
@@ -34,8 +25,8 @@ router.post('/api/categories', async(req,res)=>{
 })
 
 //Put API to update categories
-router.put('/api/categories/:id',async (req, res)=>{
-    const {error} = validateData(req.body);
+router.put('/api/students/:id',async (req, res)=>{
+    const {error} = validate(req.body);
     if(error) res.status(400).send(error.details[0].message);
 
     const category = await Category.findByIdAndUpdate(req.params.id, {name: req.body.name},{new: true});
@@ -45,7 +36,7 @@ router.put('/api/categories/:id',async (req, res)=>{
 });
 
 //Delete API to delete categories
-router.delete('/api/categories/:id',async (req, res) => {
+router.delete('/api/students/:id',async (req, res) => {
     const category = await Category.findByIdAndRemove(req.params.id);
     if (!category) return res.status(404).send('The category with given ID ' + req.params.id + ' was not found.');
     
@@ -54,7 +45,7 @@ router.delete('/api/categories/:id',async (req, res) => {
 });
 
 //Get API to get category by ID 
-router.get('/api/categories/:id',async (req, res) => {
+router.get('/api/students/:id',async (req, res) => {
     const category = await Category.findById(req.params.id);
     if (!category) return res.status(404).send('The category with given ID ' + req.params.id + ' was not found.');
     
@@ -62,14 +53,6 @@ router.get('/api/categories/:id',async (req, res) => {
     res.send(category);
 });
 
-
-function validateData(category){
-    const schema = {
-        name: Joi.string().min(3).required(),
-    }
-    return Joi.validate(category, schema)
-
-}
 
 
 module.exports = router;
